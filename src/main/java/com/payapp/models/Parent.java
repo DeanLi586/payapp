@@ -1,27 +1,30 @@
 package com.payapp.models;
 
+import com.payapp.shared.Role;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 
 /**
  * Created by nexus on 12/8/17.
  */
-@Table(name = "Parent")
+@Table(name = "parent")
 @Entity
 public class Parent {
 
+    @Id
+    @Column(name = "parent_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @Column(name = "email")
     @Email
-    @Id
     @NotNull
-    private String parentEmail;
+    private String email;
 
     @Column(name = "password")
     @Length(min = 6, max = 12)
@@ -36,12 +39,51 @@ public class Parent {
     @NotNull
     private String lastName;
 
-    public String getParentEmail() {
-        return parentEmail;
+    @Column(name = "phone")
+    private String phone;
+
+    public String getPhone() {
+        return phone;
     }
 
-    public void setParentEmail(String parentEmail) {
-        this.parentEmail = parentEmail;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Column
+    @OneToMany(mappedBy = "parent")
+    private Collection<Child> child;
+
+    @Transient
+    @OneToOne(mappedBy = "", fetch = FetchType.LAZY)
+    private Role role;
+
+    @OneToMany(mappedBy = "parent")
+    @Column(name = "accounts")
+    private Collection<ParentAccount> parentAccountList;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Collection<ParentAccount> getParentAccountList() {
+        return parentAccountList;
+    }
+
+    public void setParentAccountList(Collection<ParentAccount> parentAccountList) {
+        this.parentAccountList = parentAccountList;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -50,6 +92,22 @@ public class Parent {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Collection<Child> getChild() {
+        return child;
+    }
+
+    public void setChild(Collection<Child> childList) {
+        this.child = childList;
     }
 
     public String getFirstName() {
