@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface SchoolAccountRepository extends JpaRepository<SchoolAccount, Long> {
     Collection<SchoolAccount> findSchoolAccountsBySchool_Email(String email);
+    Collection<SchoolAccount> findAllBySchoolId(Long id);
+    SchoolAccount findByAccountId(Long id);
 }

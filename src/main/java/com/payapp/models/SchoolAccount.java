@@ -32,6 +32,17 @@ public class SchoolAccount {
     @Column(name = "account_number")
     private String accountNumber;
 
+    @Transient
+    private String accountProvider;
+
+    public String getAccountProvider() {
+        return accountProvider;
+    }
+
+    public void setAccountProvider(String accountProvider) {
+        this.accountProvider = accountProvider;
+    }
+
     public String getAccountNumber() {
         return accountNumber;
     }

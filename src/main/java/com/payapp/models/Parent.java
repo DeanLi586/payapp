@@ -40,7 +40,20 @@ public class Parent {
     private String lastName;
 
     @Column(name = "phone")
+    @NotNull
     private String phone;
+
+    @Column
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    private Collection<Child> child;
+
+    @Transient
+    @OneToOne(mappedBy = "", fetch = FetchType.LAZY)
+    private Role role;
+
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    @Column(name = "accounts")
+    private Collection<ParentAccount> parentAccountList;
 
     public String getPhone() {
         return phone;
@@ -49,18 +62,6 @@ public class Parent {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    @Column
-    @OneToMany(mappedBy = "parent")
-    private Collection<Child> child;
-
-    @Transient
-    @OneToOne(mappedBy = "", fetch = FetchType.LAZY)
-    private Role role;
-
-    @OneToMany(mappedBy = "parent")
-    @Column(name = "accounts")
-    private Collection<ParentAccount> parentAccountList;
 
     public Role getRole() {
         return role;

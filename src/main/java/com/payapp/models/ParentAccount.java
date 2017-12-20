@@ -31,6 +31,17 @@ public class ParentAccount{
     @OneToOne/*(mappedBy = "parent_account", fetch = FetchType.EAGER)*/
     private Parent parent;
 
+    @Transient
+    private String accountProvider;
+
+    public String getAccountProvider() {
+        return accountProvider;
+    }
+
+    public void setAccountProvider(String accountProvider) {
+        this.accountProvider = accountProvider;
+    }
+
     public long getAccountId() {
         return accountId;
     }
